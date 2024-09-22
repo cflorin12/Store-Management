@@ -38,18 +38,18 @@ public class SupplierService {
         return supplierRepository.save(supplier);
     }
 
-    public void delete(String id) {
+    public Supplier delete(String id) {
         ObjectId objectId = new ObjectId(id);
         if (!supplierRepository.existsById(objectId)) {
             throw new IllegalArgumentException("Supplier with id " + id + " does not exist");
         }
-        makeSupplierInactive(objectId);
+        return makeSupplierInactive(objectId);
     }
 
-    private void makeSupplierInactive(ObjectId id){
+    private Supplier makeSupplierInactive(ObjectId id){
         Supplier supplier = supplierRepository.findById(id).get();
         supplier.setIsActive(false);
-        supplierRepository.save(supplier);
+        return supplierRepository.save(supplier);
     }
 
     public Supplier update(ObjectId id, Supplier newSupplier){
