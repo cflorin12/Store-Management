@@ -1,5 +1,6 @@
 package com.example.store.service;
 
+import com.example.store.exceptions.ResourceNotFoundException;
 import com.example.store.model.Address;
 import com.example.store.model.Supplier;
 import com.example.store.model.Supplier;
@@ -31,7 +32,7 @@ public class SupplierService {
         Optional<Supplier> supplier = supplierRepository.findById(objectId);
         if(supplier.isPresent())
             return supplier.get();
-        else throw new IllegalArgumentException("Supplier with id " + id + " does not exist");
+        else throw new ResourceNotFoundException("Supplier with id " + id + " does not exist");
     }
 
     public Supplier addSupplier(Supplier supplier){
@@ -41,7 +42,7 @@ public class SupplierService {
     public Supplier delete(String id) {
         ObjectId objectId = new ObjectId(id);
         if (!supplierRepository.existsById(objectId)) {
-            throw new IllegalArgumentException("Supplier with id " + id + " does not exist");
+            throw new ResourceNotFoundException("Supplier with id " + id + " does not exist");
         }
         return makeSupplierInactive(objectId);
     }
