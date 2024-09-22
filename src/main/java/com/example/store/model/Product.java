@@ -19,4 +19,6 @@ public class Product {
     private Integer quantity;
 
     private Double price;
+
+    private ObjectId supplierId;
 }
