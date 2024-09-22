@@ -1,5 +1,6 @@
 package com.example.store.service;
 
+import com.example.store.exceptions.ResourceNotFoundException;
 import com.example.store.model.Product;
 import com.example.store.repository.ProductRepository;
 import org.bson.types.ObjectId;
@@ -27,7 +28,7 @@ public class ProductService {
     public void delete(String id) {
         ObjectId objectId = new ObjectId(id);
         if (!productRepository.existsById(objectId)) {
-            throw new IllegalArgumentException("Product with id " + id + " does not exist");
+            throw new ResourceNotFoundException("Product with id " + id + " does not exist");
         }
         productRepository.deleteById(objectId);
     }
